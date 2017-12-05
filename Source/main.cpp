@@ -25,15 +25,18 @@ class Tiger : public se::Object {
 public:
 	Tiger();
 	void Update(float delta);
+private:
+	se::Timer m_timer;
 };
 
 Tiger::Tiger() {
 	Init("tiger.x");
 	SetPosition(-2.0f, 0.0f, 0.0f);
+	m_timer.Start();
 }
 
 void Tiger::Update(float delta) {
-	unsigned int iTime = (int)delta / 10 % 1000;
+	unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
 	SetRotation(iTime * (2.0f * PI) / 1000.0f, 0.0f, 0.0f);
 }
 
