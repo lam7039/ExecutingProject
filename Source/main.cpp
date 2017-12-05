@@ -8,7 +8,7 @@
 class Airplane : public se::Object {
 public:
 	Airplane();
-	virtual void Render();
+	void Render();
 };
 
 Airplane::Airplane() {
@@ -24,7 +24,7 @@ void Airplane::Render() {
 class Tiger : public se::Object {
 public:
 	Tiger();
-	virtual void Update(float delta);
+	void Update(float delta);
 };
 
 Tiger::Tiger() {
