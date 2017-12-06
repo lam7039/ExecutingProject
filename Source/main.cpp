@@ -1,11 +1,13 @@
 #include <Windows.h>
-#include "Engine.h"
+#include "Kernel.h"
 #include "SceneLoader.h"
 #include "Timer.h"
 
 #define PI 3.1415
 
-class Airplane : public se::Object {
+se::Kernel kernel;
+
+class Airplane : public se::Entity {
 public:
 	Airplane();
 	void Render();
@@ -18,10 +20,10 @@ Airplane::Airplane() {
 }
 
 void Airplane::Render() {
-	se::LogDebug("testairplane");
+	kernel.LogDebug("testairplane");
 }
 
-class Tiger : public se::Object {
+class Tiger : public se::Entity {
 public:
 	Tiger();
 	void Update(float delta);
@@ -45,21 +47,21 @@ void Start() {
 	Tiger *tiger = new Tiger();
 
 	se::SceneLoader::GetInstance()->AddScene("rotatingobjects");
-	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddObject(airplane);
-	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddObject(tiger);
+	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(airplane);
+	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiger);
 	se::SceneLoader::GetInstance()->AddScene("heightmap");
-	se::SceneLoader::GetInstance()->GetScene("heightmap")->AddObject(tiger);
+	se::SceneLoader::GetInstance()->GetScene("heightmap")->AddEntity(tiger);
 	se::SceneLoader::GetInstance()->SetCurrentScene("rotatingobjects");
-	se::LogDebug("teststart");
+	kernel.LogDebug("teststart");
 	//se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->RemoveObject(tiger);
 }
 
 void Stop() {
-	se::LogDebug("teststop");
+	kernel.LogDebug("teststop");
 }
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
-	se::StartEngine(hInstance, nCmdShow, "GameEngine3D");
-	se::EnterLoop(Start, Stop);
+int main() {
+	kernel.StartEngine("GameEngine3D");
+	kernel.EnterLoop(Start, Stop);
 	return 0;
 }
