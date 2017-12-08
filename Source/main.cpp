@@ -3,8 +3,10 @@
 #include "SceneLoader.h"
 #include "Timer.h"
 
+//MACROAGRESSION DETECTED
 #define PI 3.1415
 
+//Ignore this, it's only for a basic logger and that's currently being improved by Eimantas
 se::Kernel kernel;
 
 class Airplane : public se::Entity {
@@ -59,6 +61,7 @@ void Stop() {
 }
 
 int main(int argc, char **argv) {
+
 	kernel.StartEngine("GameEngine3D");
 	kernel.EnterLoop(Start, Stop);
 	return 0;
