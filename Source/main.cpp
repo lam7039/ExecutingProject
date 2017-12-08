@@ -49,9 +49,7 @@ void Start() {
 	se::SceneLoader::GetInstance()->AddScene("rotatingobjects");
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(airplane);
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiger);
-	se::SceneLoader::GetInstance()->AddScene("heightmap");
-	se::SceneLoader::GetInstance()->GetScene("heightmap")->AddEntity(tiger);
-	se::SceneLoader::GetInstance()->SetCurrentScene("rotatingobjects");
+	se::SceneLoader::GetInstance()->SetCurrentScene("heightmap");
 	kernel.LogDebug("teststart");
 	//se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->RemoveObject(tiger);
 }
@@ -60,7 +58,7 @@ void Stop() {
 	kernel.LogDebug("teststop");
 }
 
-int main() {
+int main(int argc, char **argv) {
 	kernel.StartEngine("GameEngine3D");
 	kernel.EnterLoop(Start, Stop);
 	return 0;

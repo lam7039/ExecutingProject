@@ -25,6 +25,8 @@ set_property(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR} PROPERTY VS_STARTUP_PROJECT E
 
 if(${WIN32})
 	set(DEBUG_LINK_LIBRARIES
+		debug "$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/d3d9.lib"
+		debug "$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/d3dx9.lib"
 		debug ${GAMEENGINE3D_DIR}/Libraries/debug/GameEngine3D.lib
 	)
 	set(RELEASE_LINK_LIBRARIES
@@ -32,7 +34,4 @@ if(${WIN32})
 	)
 	set(ALL_LINK_LIBRARIES ${DEBUG_LINK_LIBRARIES} ${RELEASE_LINK_LIBRARIES})
 	target_link_libraries(ExecutableProject ${ALL_LINK_LIBRARIES})
-	add_custom_command(TARGET ExecutableProject PRE_BUILD
-		COMMAND ${CMAKE_COMMAND} -E copy "../../../GameEngine3D/Binaries/debug/GameEngine3D.dll" "${ROOT_DIR}/Development/GameEngine3D.dll"
-	)
 endif()
