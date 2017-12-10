@@ -8,9 +8,7 @@ set(ROOT_DIR "${PROJECT_SOURCE_DIR}/../")
 include_directories(
 	${PROJECT_SOURCE_DIR}/../Include
 	${GAMEENGINE3D_DIR}/Include
-	if (${WIN32})
-		"$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Include"
-	endif()
+	"$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Include"
 )
 
 if(CMAKE_CONFIGURATION_TYPES)
