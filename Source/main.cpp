@@ -1,10 +1,10 @@
-#include <Windows.h>
 #include "Kernel.h"
 #include "SceneLoader.h"
 #include "Timer.h"
+#include "AssetLoader.h"
 
 //MACROAGRESSION DETECTED
-#define PI 3.1415
+#define PI 3.141592
 
 //Ignore this, it's only for a basic logger and that's currently being improved by Eimantas
 se::Kernel kernel;
@@ -22,7 +22,7 @@ Airplane::Airplane() {
 }
 
 void Airplane::Render() {
-	kernel.LogDebug("testairplane");
+
 }
 
 class Tiger : public se::Entity {
@@ -44,25 +44,25 @@ void Tiger::Update(float delta) {
 	SetRotation(iTime * (2.0f * PI) / 1000.0f, 0.0f, 0.0f);
 }
 
-void Start() {
+int main(int argc, char **argv) {
+	kernel.StartEngine("GameEngine3D");
+	kernel.LogDebug("teststart");
+
+	se::AssetLoader::GetInstance()->AddMesh("airplane.x");
+	se::AssetLoader::GetInstance()->AddMesh("tiger.x");
+
 	Airplane *airplane = new Airplane();
 	Tiger *tiger = new Tiger();
 
 	se::SceneLoader::GetInstance()->AddScene("rotatingobjects");
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(airplane);
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiger);
-	se::SceneLoader::GetInstance()->SetCurrentScene("heightmap");
-	kernel.LogDebug("teststart");
-	//se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->RemoveObject(tiger);
-}
+	se::SceneLoader::GetInstance()->SetCurrentScene("rotatingobjects");
 
-void Stop() {
+	kernel.EnterLoop();
+
 	kernel.LogDebug("teststop");
-}
-
-int main(int argc, char **argv) {
-
-	kernel.StartEngine("GameEngine3D");
-	kernel.EnterLoop(Start, Stop);
+	se::AssetLoader::GetInstance()->ReleaseMesh("airplane.x");
+	se::AssetLoader::GetInstance()->ReleaseMesh("tiger.x");
 	return 0;
 }
