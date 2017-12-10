@@ -6,8 +6,8 @@
 //MACROAGRESSION DETECTED
 #define PI 3.141592
 
-//Ignore this, it's only for a basic logger and that's currently being improved by Eimantas
-se::Kernel kernel;
+//Ignore this global, it's only for a basic logger and that's currently being improved by Eimantas
+se::Kernel kernel("GameEngine3D");
 
 class Airplane : public se::Entity {
 public:
@@ -45,7 +45,6 @@ void Tiger::Update(float delta) {
 }
 
 int main(int argc, char **argv) {
-	kernel.StartEngine("GameEngine3D");
 	kernel.LogDebug("teststart");
 
 	se::AssetLoader::GetInstance()->AddMesh("airplane.x");
