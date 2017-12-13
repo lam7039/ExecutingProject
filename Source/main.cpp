@@ -3,11 +3,9 @@
 #include "Timer.h"
 #include "AssetLoader.h"
 
+
 //MACROAGRESSION DETECTED
 #define PI 3.141592
-
-//Ignore this global, it's only for a basic logger and that's currently being improved by Eimantas
-se::Kernel kernel("GameEngine3D");
 
 class Airplane : public se::Entity {
 public:
@@ -45,7 +43,9 @@ void Tiger::Update(float delta) {
 }
 
 int main(int argc, char **argv) {
-	kernel.LogDebug("teststart");
+	se::Kernel kernel("GameEngine3D");
+	se::Debug logger("project.log");
+	logger.Log(0, __FILE__, __LINE__, "teststart");
 
 	se::AssetLoader::GetInstance()->AddMesh("airplane.x");
 	se::AssetLoader::GetInstance()->AddMesh("tiger.x");
@@ -53,14 +53,18 @@ int main(int argc, char **argv) {
 	Airplane *airplane = new Airplane();
 	Tiger *tiger = new Tiger();
 
+	se::SceneLoader::GetInstance()->AddScene("terrain");
 	se::SceneLoader::GetInstance()->AddScene("rotatingobjects");
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(airplane);
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiger);
-	se::SceneLoader::GetInstance()->SetCurrentScene("rotatingobjects");
+	se::SceneLoader::GetInstance()->SetCurrentScene("terrain");
 
 	kernel.EnterLoop();
 
-	kernel.LogDebug("teststop");
+	se::Debug logger2("engine.log");
+	logger2.Log(0, __FILE__, __LINE__, "engine stopped");
+
+	logger.Log(0, __FILE__, __LINE__, "teststop");
 	se::AssetLoader::GetInstance()->ReleaseMesh("airplane.x");
 	se::AssetLoader::GetInstance()->ReleaseMesh("tiger.x");
 	return 0;
