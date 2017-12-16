@@ -3,7 +3,6 @@
 #include "Timer.h"
 #include "AssetLoader.h"
 
-
 //MACROAGRESSION DETECTED
 #define PI 3.141592
 
@@ -32,14 +31,16 @@ private:
 };
 
 Tiger::Tiger() {
-	Init("tiger.x");
+	Init("tiny.x");
+	SetScale(1.0f / 50);
 	SetPosition(-2.0f, 0.0f, 0.0f);
+	SetRotation(0.0f, -(PI / 2), 0.0f);
 	m_timer.Start();
 }
 
 void Tiger::Update(float delta) {
-	unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
-	SetRotation(iTime * (2.0f * PI) / 1000.0f, 0.0f, 0.0f);
+	//unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
+	//SetRotation(iTime * (2.0f * PI) / 1000.0f, 0.0f, 0.0f);
 }
 
 int main(int argc, char **argv) {
@@ -48,7 +49,7 @@ int main(int argc, char **argv) {
 	logger.Log(0, __FILE__, __LINE__, "teststart");
 
 	se::AssetLoader::GetInstance()->AddMesh("airplane.x");
-	se::AssetLoader::GetInstance()->AddMesh("tiger.x");
+	se::AssetLoader::GetInstance()->AddMesh("tiny.x");
 
 	Airplane *airplane = new Airplane();
 	Tiger *tiger = new Tiger();
@@ -57,7 +58,7 @@ int main(int argc, char **argv) {
 	se::SceneLoader::GetInstance()->AddScene("rotatingobjects");
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(airplane);
 	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiger);
-	se::SceneLoader::GetInstance()->SetCurrentScene("terrain");
+	se::SceneLoader::GetInstance()->SetCurrentScene("rotatingobjects");
 
 	kernel.EnterLoop();
 
@@ -66,6 +67,6 @@ int main(int argc, char **argv) {
 
 	logger.Log(0, __FILE__, __LINE__, "teststop");
 	se::AssetLoader::GetInstance()->ReleaseMesh("airplane.x");
-	se::AssetLoader::GetInstance()->ReleaseMesh("tiger.x");
+	se::AssetLoader::GetInstance()->ReleaseMesh("tiny.x");
 	return 0;
 }
