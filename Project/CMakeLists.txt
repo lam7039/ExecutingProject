@@ -28,6 +28,8 @@ if(${WIN32})
 	set(DEBUG_LINK_LIBRARIES
 		debug "$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/d3d9.lib"
 		debug "$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/d3dx9.lib"
+		debug "$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/dinput8.lib"
+		debug "$ENV{PROGRAMFILES} (x86)/Microsoft DirectX SDK (June 2010)/Lib/x86/dxguid.lib"
 		debug ${GAMEENGINE3D_DIR}/Libraries/debug/GameEngine3D.lib
 	)
 	set(RELEASE_LINK_LIBRARIES

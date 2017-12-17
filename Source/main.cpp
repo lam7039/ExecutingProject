@@ -13,9 +13,9 @@ public:
 };
 
 Airplane::Airplane() {
-	Init("airplane.x");
+	Init("skybox2.x");
 	SetPosition(2.0f, 0.0f, -5.0f);
-	SetRotation(PI, 0.0f, 0.0f);
+	SetRotation(PI, -(PI / 2), 0.0f);
 }
 
 void Airplane::Render() {
@@ -34,21 +34,21 @@ Tiger::Tiger() {
 	Init("tiny.x");
 	SetScale(1.0f / 50);
 	SetPosition(-2.0f, 0.0f, 0.0f);
-	SetRotation(0.0f, -(PI / 2), 0.0f);
+	//SetRotation(0.0f, -(PI / 2), 0.0f);
 	m_timer.Start();
 }
 
 void Tiger::Update(float delta) {
-	//unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
-	//SetRotation(iTime * (2.0f * PI) / 1000.0f, 0.0f, 0.0f);
+	unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
+	SetRotation(iTime * (2.0f * PI) / 1000.0f, -(PI / 2), 0.0f);
 }
 
 int main(int argc, char **argv) {
-	se::Kernel kernel("GameEngine3D");
+	se::Kernel kernel("GameEngine3D", 800, 500);
 	se::Debug logger("project.log");
 	logger.Log(0, __FILE__, __LINE__, "teststart");
 
-	se::AssetLoader::GetInstance()->AddMesh("airplane.x");
+	se::AssetLoader::GetInstance()->AddMesh("skybox2.x");
 	se::AssetLoader::GetInstance()->AddMesh("tiny.x");
 
 	Airplane *airplane = new Airplane();
@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 	logger2.Log(0, __FILE__, __LINE__, "engine stopped");
 
 	logger.Log(0, __FILE__, __LINE__, "teststop");
-	se::AssetLoader::GetInstance()->ReleaseMesh("airplane.x");
+	se::AssetLoader::GetInstance()->ReleaseMesh("skybox2.x");
 	se::AssetLoader::GetInstance()->ReleaseMesh("tiny.x");
 	return 0;
 }
