@@ -6,31 +6,32 @@
 //MACROAGRESSION DETECTED
 #define PI 3.141592
 
-class Airplane : public se::Entity {
+//Cloaked an entity as a temporary skybox
+class Skybox : public se::Entity {
 public:
-	Airplane();
+	Skybox();
 	void Render();
 };
 
-Airplane::Airplane() {
+Skybox::Skybox() {
 	Init("skybox2.x");
 	SetPosition(2.0f, 0.0f, -5.0f);
 	SetRotation(PI, -(PI / 2), 0.0f);
 }
 
-void Airplane::Render() {
+void Skybox::Render() {
 
 }
 
-class Tiger : public se::Entity {
+class Tiny : public se::Entity {
 public:
-	Tiger();
+	Tiny();
 	void Update(float delta);
 private:
 	se::Timer m_timer;
 };
 
-Tiger::Tiger() {
+Tiny::Tiny() {
 	Init("tiny.x");
 	SetScale(1.0f / 50);
 	SetPosition(-2.0f, 0.0f, 0.0f);
@@ -38,7 +39,7 @@ Tiger::Tiger() {
 	m_timer.Start();
 }
 
-void Tiger::Update(float delta) {
+void Tiny::Update(float delta) {
 	unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
 	SetRotation(iTime * (2.0f * PI) / 1000.0f, -(PI / 2), 0.0f);
 }
@@ -51,13 +52,13 @@ int main(int argc, char **argv) {
 	se::AssetLoader::GetInstance()->AddMesh("skybox2.x");
 	se::AssetLoader::GetInstance()->AddMesh("tiny.x");
 
-	Airplane *airplane = new Airplane();
-	Tiger *tiger = new Tiger();
+	Skybox *skybox = new Skybox();
+	Tiny *tiny = new Tiny();
 
 	se::SceneLoader::GetInstance()->AddScene("terrain");
 	se::SceneLoader::GetInstance()->AddScene("rotatingobjects");
-	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(airplane);
-	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiger);
+	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(skybox);
+	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiny);
 	se::SceneLoader::GetInstance()->SetCurrentScene("rotatingobjects");
 
 	kernel.EnterLoop();
