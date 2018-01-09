@@ -56,10 +56,10 @@ int main(int argc, char **argv) {
 	Tiny *tiny = new Tiny();
 
 	se::SceneLoader::GetInstance()->AddScene("terrain");
-	se::SceneLoader::GetInstance()->AddScene("rotatingobjects");
-	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(skybox);
-	se::SceneLoader::GetInstance()->GetScene("rotatingobjects")->AddEntity(tiny);
-	se::SceneLoader::GetInstance()->SetCurrentScene("rotatingobjects");
+	se::SceneLoader::GetInstance()->AddScene("world");
+	se::SceneLoader::GetInstance()->GetScene("world")->AddEntity(skybox);
+	se::SceneLoader::GetInstance()->GetScene("world")->AddEntity(tiny);
+	se::SceneLoader::GetInstance()->SetCurrentScene("world");
 
 	kernel.EnterLoop();
 
