@@ -1,5 +1,5 @@
 #include "Kernel.h"
-#include "SceneLoader.h"
+#include "SceneManager.h"
 #include "Timer.h"
 #include "AssetLoader.h"
 
@@ -14,9 +14,10 @@ public:
 };
 
 Skybox::Skybox() {
-	Init("skybox2.x");
+	m_entityName = "skybox2.x";
 	SetPosition(2.0f, 0.0f, -5.0f);
 	SetRotation(PI, -(PI / 2), 0.0f);
+	SetScale(2.0f);
 }
 
 void Skybox::Render() {
@@ -32,7 +33,7 @@ private:
 };
 
 Tiny::Tiny() {
-	Init("tiny.x");
+	m_entityName = "tiny.x";
 	SetScale(1.0f / 50);
 	SetPosition(-2.0f, 0.0f, 0.0f);
 	//SetRotation(0.0f, -(PI / 2), 0.0f);
@@ -47,27 +48,23 @@ void Tiny::Update(float delta) {
 int main(int argc, char **argv) {
 	se::Kernel kernel("GameEngine3D", 800, 500);
 	se::Debug logger("project.log");
-	logger.Log(0, __FILE__, __LINE__, "teststart");
+	logger.Log(0, __FILE__, __LINE__, "project started");
 
 	se::AssetLoader::GetInstance()->AddMesh("skybox2.x");
-	se::AssetLoader::GetInstance()->AddMesh("tiny.x");
+	//se::AssetLoader::GetInstance()->AddMesh("tiny.x");
+	se::AssetLoader::GetInstance()->AddTerrain("Heightmap.bmp", "texture.jpg");
 
 	Skybox *skybox = new Skybox();
-	Tiny *tiny = new Tiny();
+	//Tiny *tiny = new Tiny();
 
-	se::SceneLoader::GetInstance()->AddScene("terrain");
-	se::SceneLoader::GetInstance()->AddScene("world");
-	se::SceneLoader::GetInstance()->GetScene("world")->AddEntity(skybox);
-	se::SceneLoader::GetInstance()->GetScene("world")->AddEntity(tiny);
-	se::SceneLoader::GetInstance()->SetCurrentScene("world");
+	se::SceneManager::GetInstance()->AddScene("world");
+	se::SceneManager::GetInstance()->GetScene("world")->AddEntity(skybox);
+	//se::SceneManager::GetInstance()->GetScene("world")->AddEntity(tiny);
+	se::SceneManager::GetInstance()->SetCurrentScene("world");
 
 	kernel.EnterLoop();
 
-	se::Debug logger2("engine.log");
-	logger2.Log(0, __FILE__, __LINE__, "engine stopped");
-
-	logger.Log(0, __FILE__, __LINE__, "teststop");
 	se::AssetLoader::GetInstance()->ReleaseMesh("skybox2.x");
-	se::AssetLoader::GetInstance()->ReleaseMesh("tiny.x");
+	//se::AssetLoader::GetInstance()->ReleaseMesh("tiny.x");
 	return 0;
 }
