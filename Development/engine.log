@@ -1,0 +1,18 @@
+Jan 14 2018 14:16:22 ..\..\Source\DirectX9\DirectXSkybox.cpp 12 [error] Failed to create a cubetexture for skybox
+Jan 14 2018 14:16:22 ..\..\Source\DirectX9\DirectXSkybox.cpp 12 [error] Failed to create a cubetexture for skybox
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 23 [info] Failed to initialize input
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 23 [info] Failed to initialize input
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 22 [info] Failed to initialize input
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 21 [info] Failed to initialize input
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 21 [info] Failed to initialize input
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 26 [error] No renderer set
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 26 [error] No renderer set
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\Kernel.cpp 26 [error] No renderer set
+Jan 14 2018 14:16:22 D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp 20 [error] Failed to load mesh: Assets\tiny.x count: 0
