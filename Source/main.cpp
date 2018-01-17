@@ -74,16 +74,23 @@ int main() {
 	//Skybox *skybox = new Skybox();
 
 	//se::AssetLoader::GetInstance()->AddAsset("skybox", skyboxMesh);
-	se::AssetLoader::GetInstance()->AddAsset("tiny", tinyMesh);
+	se::AssetLoader::GetInstance()->AddAsset("tiny", tinyMesh);	
 
 	se::Terrain *terrain = new se::Terrain();
 	terrain->Create("Heightmap2.bmp", "texture.jpg");
 	se::Skybox *skybox = new se::Skybox();
-	se::Transform3f test;
-	skybox->Create(test, "Assets\\skybox_texture.jpg");
+	se::Transform3f transformSkybox;
+	transformSkybox.posX = -25.0f;
+	transformSkybox.posY = 25.0f;
+	transformSkybox.posZ = 25.0f;
+	transformSkybox.rotX = 25.0f;
+	transformSkybox.scaleX = 100.0f;
+	transformSkybox.scaleY = 100.0f;
+	transformSkybox.scaleZ = 100.0f;
+	skybox->Create(transformSkybox, "Assets\\skybox_texture.jpg");
 
 	se::SceneManager::GetInstance()->AddScene("world");
-	//se::SceneManager::GetInstance()->GetScene("world")->SetTerrain(terrain);
+	se::SceneManager::GetInstance()->GetScene("world")->SetTerrain(terrain);
 	se::SceneManager::GetInstance()->GetScene("world")->SetSkybox(skybox);
 	//se::SceneManager::GetInstance()->GetScene("world")->AddEntity(skybox);
 	se::SceneManager::GetInstance()->GetScene("world")->AddEntity(tiny);
