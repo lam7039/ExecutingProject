@@ -80,14 +80,14 @@ int main() {
 	terrain->Create("Heightmap2.bmp", "texture.jpg");
 	se::Skybox *skybox = new se::Skybox();
 	se::Transform3f transformSkybox;
-	transformSkybox.posX = -25.0f;
-	transformSkybox.posY = 25.0f;
-	transformSkybox.posZ = 25.0f;
-	transformSkybox.rotX = 25.0f;
-	transformSkybox.scaleX = 100.0f;
-	transformSkybox.scaleY = 100.0f;
-	transformSkybox.scaleZ = 100.0f;
+	transformSkybox.posX = -250.0f;
+	transformSkybox.posY = 250.0f;
+	transformSkybox.posZ = 250.0f;
+	transformSkybox.scaleX = 500.0f;
+	transformSkybox.scaleY = 500.0f;
+	transformSkybox.scaleZ = 500.0f;
 	skybox->Create(transformSkybox, "Assets\\skybox_texture.jpg");
+
 
 	se::SceneManager::GetInstance()->AddScene("world");
 	se::SceneManager::GetInstance()->GetScene("world")->SetTerrain(terrain);
