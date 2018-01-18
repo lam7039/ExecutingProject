@@ -46,15 +46,18 @@ Airplane::Airplane() {
 }
 
 int main() {
-	//Smallest setup possible
+	//Begin smallest setup possible
 	//se::Kernel kernel("GameEngine3D", 800, 500, new se::Direct3D(), new se::Input);
 	//kernel.EnterLoop();
+	//End smallest setup possible
 
+	int width = 800;
+	int height = 500;
 	se::Input input;
-	se::Kernel kernel("GameEngine3D", 800, 500, new se::Direct3D(), &input);
-	//kernel.AddWindow("test", 1920, 1080);
+	se::Kernel kernel("GameEngine3D", width, height, new se::Direct3D(), &input);
+	kernel.AddWindow("test", 0, 0, 1920, 1080);
 	
-	se::CameraController controller(new se::DirectXCamera(), &input);
+	se::CameraController controller(new se::DirectXCamera(width, height), &input);
 	kernel.SetCameraController(&controller);
 	//se::Transform3f target;
 	//target.posZ = -15.0f;
@@ -78,8 +81,8 @@ int main() {
 	transformSkybox.scaleX = 500.0f;
 	transformSkybox.scaleY = 500.0f;
 	transformSkybox.scaleZ = 500.0f;
-	skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
-	//skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
+	//skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
+	skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
 
 
 	se::SceneManager::GetInstance()->AddScene("world");
