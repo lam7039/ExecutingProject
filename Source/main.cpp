@@ -53,27 +53,28 @@ int main() {
 
 	int width = 800;
 	int height = 500;
+	se::Direct3D *renderer = new se::Direct3D();
 	se::Input input;
-	se::Kernel kernel("GameEngine3D", width, height, new se::Direct3D(), &input);
+	se::Kernel kernel("GameEngine3D", width, height, renderer, &input);
 	kernel.AddWindow("test", 0, 0, 1920, 1080);
 	
-	se::CameraController controller(new se::DirectXCamera(width, height), &input);
+	se::CameraController controller(new se::DirectXCamera(renderer->GetDevice(), width, height), &input);
 	kernel.SetCameraController(&controller);
 	//se::Transform3f target;
 	//target.posZ = -15.0f;
 	//controller.SetTarget(&target);
 
-	se::Mesh *tinyMesh = new se::Mesh("Assets\\tiny.x");
+	se::Mesh *tinyMesh = new se::Mesh(renderer->GetDevice(), "Assets\\tiny.x");
 	Tiny *tiny = new Tiny();
-	se::Mesh *airplaneMesh = new se::Mesh("Assets\\airplane.x");
+	se::Mesh *airplaneMesh = new se::Mesh(renderer->GetDevice(), "Assets\\airplane.x");
 	Airplane *airplane = new Airplane();
 
 	se::AssetManager::GetInstance()->AddAsset("tiny", tinyMesh);
 	se::AssetManager::GetInstance()->AddAsset("airplane", airplaneMesh);
 
-	se::Terrain *terrain = new se::Terrain();
+	se::Terrain *terrain = new se::Terrain(renderer->GetDevice());
 	terrain->Create("Heightmap2.bmp", "texture.jpg");
-	se::Skybox *skybox = new se::Skybox();
+	se::Skybox *skybox = new se::Skybox(renderer->GetDevice());
 	se::Transform3f transformSkybox;
 	transformSkybox.posX = -250.0f;
 	transformSkybox.posY = 250.0f;
@@ -81,8 +82,8 @@ int main() {
 	transformSkybox.scaleX = 500.0f;
 	transformSkybox.scaleY = 500.0f;
 	transformSkybox.scaleZ = 500.0f;
-	//skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
-	skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
+	skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
+	//skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
 
 
 	se::SceneManager::GetInstance()->AddScene("world");
