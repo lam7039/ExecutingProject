@@ -15,13 +15,15 @@
 
 class Tiny : public se::Entity {
 public:
-	Tiny();
+	Tiny(se::Input *input);
 	void Update(float delta);
 private:
 	se::Timer m_timer;
+	se::Input *m_input;
 };
 
-Tiny::Tiny() {
+Tiny::Tiny(se::Input *input) {
+	m_input = input;
 	m_assetName = "tiny";
 	SetScale(1.0f / 50, 1.0f / 50, 1.0f / 50);
 	SetPosition(-2.0f, 0.0f, 0.0f);
@@ -32,6 +34,18 @@ Tiny::Tiny() {
 void Tiny::Update(float delta) {
 	unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
 	SetRotation(iTime * (2.0f * PI) / 1000.0f, -(PI / 2), 0.0f);
+	if (m_input->IsPressed(DIK_I)) {
+		m_transform.posZ += 100.0f * delta;
+	}
+	if (m_input->IsPressed(DIK_K)) {
+		m_transform.posZ -= 100.0f * delta;
+	}
+	if (m_input->IsPressed(DIK_L)) {
+		m_transform.posX += 100.0f * delta;
+	}
+	if (m_input->IsPressed(DIK_J)) {
+		m_transform.posX -= 100.0f * delta;
+	}
 }
 
 class Airplane : public se::Entity {
@@ -57,15 +71,16 @@ int main() {
 	se::Input input;
 	se::Kernel kernel("GameEngine3D", width, height, renderer, &input);
 	kernel.AddWindow("test", 0, 0, 1920, 1080);
-	
-	se::CameraController controller(new se::DirectXCamera(renderer->GetDevice(), width, height), &input);
+
+	se::CameraController controller(new se::Camera(renderer->GetDevice(), width, height), &input);
 	kernel.SetCameraController(&controller);
 	//se::Transform3f target;
 	//target.posZ = -15.0f;
 	//controller.SetTarget(&target);
 
 	se::Mesh *tinyMesh = new se::Mesh(renderer->GetDevice(), "Assets\\tiny.x");
-	Tiny *tiny = new Tiny();
+	Tiny *tiny = new Tiny(&input);
+
 	se::Mesh *airplaneMesh = new se::Mesh(renderer->GetDevice(), "Assets\\airplane.x");
 	Airplane *airplane = new Airplane();
 
@@ -82,8 +97,8 @@ int main() {
 	transformSkybox.scaleX = 500.0f;
 	transformSkybox.scaleY = 500.0f;
 	transformSkybox.scaleZ = 500.0f;
-	skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
-	//skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
+	//skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
+	skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
 
 
 	se::SceneManager::GetInstance()->AddScene("world");
