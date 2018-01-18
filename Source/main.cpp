@@ -1,7 +1,7 @@
 #include "Kernel.h"
 #include "SceneManager.h"
 #include "Timer.h"
-#include "AssetLoader.h"
+#include "AssetManager.h"
 #include "Transform.h"
 #include "Input.h"
 #include "CameraController.h"
@@ -10,27 +10,8 @@
 #include "DirectX9/DirectXCamera.h"
 #include "DirectX9/DirectXSkybox.h"
 
-//MACROAGRESSION DETECTED
+//MACROAGRESSION DETECTED (chill, it's a joke)
 #define PI 3.141592
-
-//Cloaked an entity as a temporary skybox
-//class Skybox : public se::Entity {
-//public:
-//	Skybox();
-//	void Render();
-//};
-//
-//Skybox::Skybox() {
-//	m_entityName = "skybox";
-//	m_assetName = "skybox";
-//	SetPosition(2.0f, 0.0f, -5.0f);
-//	SetRotation(PI, -(PI / 2), 0.0f);
-//	SetScale(2.0f, 2.0f, 2.0f);
-//}
-//
-//void Skybox::Render() {
-//
-//}
 
 class Tiny : public se::Entity {
 public:
@@ -41,7 +22,6 @@ private:
 };
 
 Tiny::Tiny() {
-	m_entityName = "asdf";
 	m_assetName = "tiny";
 	SetScale(1.0f / 50, 1.0f / 50, 1.0f / 50);
 	SetPosition(-2.0f, 0.0f, 0.0f);
@@ -54,27 +34,39 @@ void Tiny::Update(float delta) {
 	SetRotation(iTime * (2.0f * PI) / 1000.0f, -(PI / 2), 0.0f);
 }
 
+class Airplane : public se::Entity {
+public:
+	Airplane();
+};
+
+Airplane::Airplane() {
+	m_assetName = "airplane";
+	SetScale(1.0f, 1.0f, 1.0f);
+	SetPosition(20.0f, 0.0f, 0.0f);
+}
+
 int main() {
+	//Smallest setup possible
+	//se::Kernel kernel("GameEngine3D", 800, 500, new se::Direct3D(), new se::Input);
+	//kernel.EnterLoop();
+
 	se::Input input;
 	se::Kernel kernel("GameEngine3D", 800, 500, new se::Direct3D(), &input);
 	//kernel.AddWindow("test", 1920, 1080);
-	se::Debug logger("project.log");
-	logger.Log(0, __FILE__, __LINE__, "project started");
-
-	//se::Transform3f target;
-	//target.posZ = -15.0f;
 	
 	se::CameraController controller(new se::DirectXCamera(), &input);
-	kernel.AddCameraController(&controller);
+	kernel.SetCameraController(&controller);
+	//se::Transform3f target;
+	//target.posZ = -15.0f;
 	//controller.SetTarget(&target);
 
 	se::Mesh *tinyMesh = new se::Mesh("Assets\\tiny.x");
 	Tiny *tiny = new Tiny();
-	//se::Mesh *skyboxMesh = new se::Mesh("Assets\\skybox2.x");
-	//Skybox *skybox = new Skybox();
+	se::Mesh *airplaneMesh = new se::Mesh("Assets\\airplane.x");
+	Airplane *airplane = new Airplane();
 
-	//se::AssetLoader::GetInstance()->AddAsset("skybox", skyboxMesh);
-	se::AssetLoader::GetInstance()->AddAsset("tiny", tinyMesh);	
+	se::AssetManager::GetInstance()->AddAsset("tiny", tinyMesh);
+	se::AssetManager::GetInstance()->AddAsset("airplane", airplaneMesh);
 
 	se::Terrain *terrain = new se::Terrain();
 	terrain->Create("Heightmap2.bmp", "texture.jpg");
@@ -86,19 +78,19 @@ int main() {
 	transformSkybox.scaleX = 500.0f;
 	transformSkybox.scaleY = 500.0f;
 	transformSkybox.scaleZ = 500.0f;
-	skybox->Create(transformSkybox, "Assets\\skybox_texture.jpg");
+	skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
+	//skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
 
 
 	se::SceneManager::GetInstance()->AddScene("world");
 	se::SceneManager::GetInstance()->GetScene("world")->SetTerrain(terrain);
 	se::SceneManager::GetInstance()->GetScene("world")->SetSkybox(skybox);
-	//se::SceneManager::GetInstance()->GetScene("world")->AddEntity(skybox);
 	se::SceneManager::GetInstance()->GetScene("world")->AddEntity(tiny);
+	se::SceneManager::GetInstance()->GetScene("world")->AddEntity(airplane);
 	se::SceneManager::GetInstance()->SetCurrentScene("world");
 
 	kernel.EnterLoop();
 
-	//se::AssetLoader::GetInstance()->ReleaseAsset("skybox2.x");
-	se::AssetLoader::GetInstance()->ReleaseAsset("tiny");
+	se::AssetManager::GetInstance()->ReleaseAsset("tiny");
 	return 0;
 }

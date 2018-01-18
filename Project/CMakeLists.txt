@@ -37,4 +37,7 @@ if(${WIN32})
 	)
 	set(ALL_LINK_LIBRARIES ${DEBUG_LINK_LIBRARIES} ${RELEASE_LINK_LIBRARIES})
 	target_link_libraries(ExecutableProject ${ALL_LINK_LIBRARIES})
+	add_custom_command(TARGET ExecutableProject POST_BUILD
+		COMMAND ${CMAKE_COMMAND} -E copy "$<LOWER_CASE:$<CONFIG>>/ExecutableProject.exe" "${ROOT_DIR}/Development/ExecutableProject.exe"
+	)
 endif()
