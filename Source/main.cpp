@@ -63,7 +63,7 @@ Airplane::Airplane() {
 
 int main() {
 	//Begin smallest setup possible
-	//se::Kernel kernel("GameEngine3D", 800, 500, new se::Direct3D(), new se::Input);
+	//se::Kernel kernel("GameEngine3D", 10, 10, 800, 500, new se::Direct3D(), new se::Input);
 	//kernel.EnterLoop();
 	//End smallest setup possible
 
@@ -71,8 +71,8 @@ int main() {
 	int height = 500;
 	se::Direct3D *renderer = new se::Direct3D();
 	se::Input input;
-	se::Kernel kernel("GameEngine3D", width, height, renderer, &input);
-	kernel.AddWindow("test", 0, 0, 1920, 1080);
+	se::Kernel kernel("GameEngine3D", 0, 0, width, height, renderer, &input);
+	kernel.AddWindow("test", width, 0, 800, 500);
 
 	se::CameraController controller(new se::Camera(renderer->GetDevice(), width, height), &input);
 	kernel.SetCameraController(&controller);
@@ -89,8 +89,16 @@ int main() {
 	se::AssetManager::GetInstance()->AddAsset("tiny", tinyMesh);
 	se::AssetManager::GetInstance()->AddAsset("airplane", airplaneMesh);
 
+	se::Transform3f transformTerrain;
+	transformTerrain.posX = 0.0f;
+	transformTerrain.posY = -20.0f;
+	transformTerrain.posZ = 10.0f;
+	transformTerrain.rotX = 0.0f;
+	transformTerrain.rotY = 0.0f;
+	transformTerrain.rotZ = 0.0f;
 	se::Terrain *terrain = new se::Terrain(renderer->GetDevice());
-	terrain->Create("Heightmap2.bmp", "texture.jpg");
+	terrain->Create("Heightmap2.bmp", "texture.jpg", transformTerrain);
+
 	se::Skybox *skybox = new se::Skybox(renderer->GetDevice());
 	se::Transform3f transformSkybox;
 	transformSkybox.posX = -250.0f;
@@ -101,7 +109,6 @@ int main() {
 	transformSkybox.scaleZ = 500.0f;
 	//skybox->Create(transformSkybox, "Assets\\yokohama.jpg");
 	skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
-
 
 	se::SceneManager::GetInstance()->AddScene("empty");
 	se::SceneManager::GetInstance()->AddScene("world");
