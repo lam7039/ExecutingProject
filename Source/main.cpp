@@ -63,7 +63,7 @@ Airplane::Airplane() {
 
 int main() {
 	//Begin smallest setup possible
-	//se::Kernel kernel("GameEngine3D", 10, 10, 800, 500, new se::Direct3D(), new se::Input);
+	//se::Kernel kernel("GameEngine3D", true, 0, 0, 800, 500, new se::Direct3D(), new se::Input);
 	//kernel.EnterLoop();
 	//End smallest setup possible
 
@@ -71,7 +71,7 @@ int main() {
 	int height = 500;
 	se::Direct3D *renderer = new se::Direct3D();
 	se::Input input;
-	se::Kernel kernel("GameEngine3D", 0, 0, width, height, renderer, &input);
+	se::Kernel kernel("GameEngine3D", false, 0, 0, width, height, renderer, &input);
 	kernel.AddWindow("test", width, 0, 800, 500);
 
 	se::CameraController controller(new se::Camera(renderer->GetDevice(), width, height), &input);
