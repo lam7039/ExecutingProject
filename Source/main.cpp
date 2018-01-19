@@ -20,6 +20,7 @@ public:
 private:
 	se::Timer m_timer;
 	se::Input *m_input;
+	float m_speed;
 };
 
 Tiny::Tiny(se::Input *input) {
@@ -29,22 +30,23 @@ Tiny::Tiny(se::Input *input) {
 	SetPosition(-2.0f, 0.0f, 0.0f);
 	//SetRotation(0.0f, -(PI / 2), 0.0f);
 	m_timer.Start();
+	m_speed = 100.0f;
 }
 
 void Tiny::Update(float delta) {
 	unsigned int iTime = (int)m_timer.Milliseconds() / 10 % 1000;
 	SetRotation(iTime * (2.0f * PI) / 1000.0f, -(PI / 2), 0.0f);
 	if (m_input->IsPressed(DIK_I)) {
-		m_transform.posZ += 100.0f * delta;
+		m_transform.posZ += m_speed * delta;
 	}
 	if (m_input->IsPressed(DIK_K)) {
-		m_transform.posZ -= 100.0f * delta;
+		m_transform.posZ -= m_speed * delta;
 	}
 	if (m_input->IsPressed(DIK_L)) {
-		m_transform.posX += 100.0f * delta;
+		m_transform.posX += m_speed * delta;
 	}
 	if (m_input->IsPressed(DIK_J)) {
-		m_transform.posX -= 100.0f * delta;
+		m_transform.posX -= m_speed * delta;
 	}
 }
 
@@ -101,6 +103,7 @@ int main() {
 	skybox->Create(transformSkybox, "Assets\\faulty_skybox_texture.jpg"); //use this when you want it to load quickly since the good one is a bit big, although this will have black borders on top and bottom except in front
 
 
+	se::SceneManager::GetInstance()->AddScene("empty");
 	se::SceneManager::GetInstance()->AddScene("world");
 	se::SceneManager::GetInstance()->GetScene("world")->SetTerrain(terrain);
 	se::SceneManager::GetInstance()->GetScene("world")->SetSkybox(skybox);
@@ -109,7 +112,7 @@ int main() {
 	se::SceneManager::GetInstance()->SetCurrentScene("world");
 
 	kernel.EnterLoop();
-
+	//this is unecessary, when the loop quits all assets automatically release, but it's just to show you *can* do it
 	se::AssetManager::GetInstance()->ReleaseAsset("tiny");
 	return 0;
 }
