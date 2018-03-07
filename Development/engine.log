@@ -1,6 +1,0 @@
-Jan 18 2018 17:18:16 file: D:\Projects\GameEngine3D\Source\Kernel.cpp line: 23 [warning] Failed to initialize input
-Jan 18 2018 17:18:16 file: D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp line: 20 [error] Failed to load mesh: Assets\tiny.x count: 0
-Jan 18 2018 17:18:16 file: D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp line: 20 [error] Failed to load mesh: Assets\airplane.x count: 0
-Jan 18 2018 17:18:16 file: D:\Projects\GameEngine3D\Source\Kernel.cpp line: 22 [warning] Failed to initialize input
-Jan 18 2018 17:18:16 file: D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp line: 20 [error] Failed to load mesh: Assets\tiny.x count: 0
-Jan 18 2018 17:18:16 file: D:\Projects\GameEngine3D\Source\DirectX9\DirectXMesh.cpp line: 20 [error] Failed to load mesh: Assets\airplane.x count: 0
