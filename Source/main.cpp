@@ -15,7 +15,7 @@
 class Tiny : public se::Entity {
 public:
 	Tiny(se::AbstractInput *input);
-	void Update(float delta);
+	void Update(float delta) override;
 private:
 	se::Timer m_timer;
 	se::AbstractInput *m_input;
