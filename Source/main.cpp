@@ -16,8 +16,7 @@ class Tiny : public se::Entity {
 public:
 	Tiny(se::AbstractInput *input);
 	void Update(float delta) override;
-	void Render() override;
-	void Release() override;
+	void Render(se::AbstractRenderer *renderer) override;
 private:
 	se::Timer m_timer;
 	se::AbstractInput *m_input;
@@ -51,12 +50,11 @@ void Tiny::Update(float delta) {
 	}
 }
 
-void Tiny::Render() {
-	se::AssetManager::GetInstance()->GetAsset(m_assetName)->Render();
-}
-
-void Tiny::Release() {
-	se::AssetManager::GetInstance()->GetAsset(m_assetName)->Release();
+void Tiny::Render(se::AbstractRenderer *renderer) {
+	renderer->SetFVF(true, false, false, true);
+	renderer->SetStreamSource(0, m_assetName, 0);
+	renderer->SetTexture(0, m_assetName, 0);
+	renderer->Draw(m_assetName);
 }
 
 int main() {
