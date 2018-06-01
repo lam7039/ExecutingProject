@@ -16,6 +16,8 @@ class Tiny : public se::Entity {
 public:
 	Tiny(se::AbstractInput *input);
 	void Update(float delta) override;
+	void Render() override;
+	void Release() override;
 private:
 	se::Timer m_timer;
 	se::AbstractInput *m_input;
@@ -47,6 +49,14 @@ void Tiny::Update(float delta) {
 	if (m_input->IsPressed(se::SE_KEY_J)) {
 		m_position.x -= m_speed * delta;
 	}
+}
+
+void Tiny::Render() {
+	se::AssetManager::GetInstance()->GetAsset(m_assetName)->Render();
+}
+
+void Tiny::Release() {
+	se::AssetManager::GetInstance()->GetAsset(m_assetName)->Release();
 }
 
 int main() {
