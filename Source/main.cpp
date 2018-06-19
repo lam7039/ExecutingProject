@@ -68,10 +68,10 @@ int main() {
 	se::AbstractRenderer *renderer = new se::Direct3D();
 	se::AbstractInput *input = new se::DirectInput();
 	se::Kernel kernel("GameEngine3D", false, 0, 0, width, height, renderer, input);
-	//se::WindowManager::GetInstance()->AddWindow(renderer, "2nd window", false, width, 0, width, height, input);
+	se::WindowManager::GetInstance()->AddWindow("2nd window", false, width, 0, width, height, renderer, input);
 
 	// Automatically loading assets, scenes and entities with an xml file.
-	se::SceneLoader loader(renderer, "Assets\\level1.xml", input);
+	se::SceneLoader loader("Assets\\level1.xml", renderer, input);
 
 	// Example for manually adding an entity to a scene.
 	se::SceneManager::GetInstance()->GetScene("empty")->AddEntity(new Tiny(input));
